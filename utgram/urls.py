@@ -18,7 +18,7 @@ from django.urls import path
 from django.http import HttpResponse
 
 def hello_world(request):
-    return HttpResponse('<h1>Hola mundo jeje</h1>')
+    return HttpResponse('<h1>Hola mundo desde rama de Leo</h1>')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
