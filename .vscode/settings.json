@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "venv\\Scripts\\python.exe",
+    "editor.codeActionsOnSave": null,
+    "emmet.includeLanguages": {"django-html": "html"},
+}
