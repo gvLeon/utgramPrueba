@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 # Static files config
 from django.conf import settings
-from django.urls.static import static
+from django.conf.urls.static import static
 
 # importando las vistas
 from posts import views as posts_views
