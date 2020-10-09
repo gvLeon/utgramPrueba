@@ -55,4 +55,4 @@ posts = [
 ]
 
 def list_post (request):
-    return render(request,'feed.html',{'posts': posts})
+    return render(request,'posts/feed.html',{'posts': posts})
