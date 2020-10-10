@@ -12,3 +12,11 @@ def login_view(request):
         password = request.POST['password']
 
         user = authenticate(request, username=username, password=password)
+
+        if user:
+            login(request, user)
+            return redirect('feed')
+        else:
+            return render(request,'users/login.html',{'error':'Usuario o contrasena invalido!'})
+
+    return render(request,'users/login.html')

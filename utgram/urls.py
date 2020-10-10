@@ -9,14 +9,17 @@ from django.conf.urls.static import static
 
 # importando las vistas
 from posts import views as posts_views
-
-def hello_world(request):
-    return HttpResponse('<h1>Hola mundosdasdasd</h1>')
+from users import views as users_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', hello_world),
+    
 
     # PostViews
-    path('feed/', posts_views.list_post)
+    path('posts/feed/', posts_views.list_post,name='feed'),
+
+    # Users views
+    path('users/login/', users_views.login_view, name='login'),
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
