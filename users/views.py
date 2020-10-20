@@ -6,9 +6,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 # Models
 from users.models import Profile 
+
+# Forms
+from users.forms import ProfileForm
 
 # Exception
 from django.db.utils import IntegrityError
@@ -67,5 +71,31 @@ def signup(request):
 @login_required
 def update_profile(request):
     """ Update a user's profile view """
-    return render(request, 'users/update_profile.html')
+    profile = request.user.profile
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            data = form.cleaned_data
+
+            profile.website = data['website']
+            profile.bio     = data['bio']
+            profile.picture = data['picture']
+            profile.save()
+            messages.success(request, 'Tu perfil ha sido actualizado :)')
+            return redirect('feed')
+        
+    else:
+        form = ProfileForm()
+
+    return render(
+        request = request,
+        template_name='users/update_profile.html',
+        context={
+            'profile':profile,
+            'user':request.user,
+            'form':form
+        }
+    )
         
