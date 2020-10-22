@@ -131,8 +131,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_URL = '/users/login'
-LOGIN_REDIRECT_URL = '/users/login/'
+LOGIN_URL = 'login/'
+LOGIN_REDIRECT_URL = 'login/'
 
 # Static DIR es donde se encuentra el archivo
 STATICFILES_DIRS = (

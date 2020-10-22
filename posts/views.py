@@ -1,60 +1,36 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-# utilities
-# Lib datetime de django
-from datetime import datetime
+# Models
+from posts.models import Post
+
+# Forms
+from posts.forms import PostForm
 
 # Create your views here.
 
-posts = [
-    {
-        'title': 'Picture from Nietzy',
-        'user': {
-            'name': 'Nietzy Cardoza',
-            'picture': 'https://picsum.photos/60/60'
-        },
-        'timestamp': datetime.now().strftime('%dth %b, %Y - %H:%M hrs'),
-        'photo': 'https://picsum.photos/300/300',
-    },
-    {
-        'title': 'Picture from Crecencio',
-        'user': {
-            'name': 'Crecencio Gameros',
-            'picture': 'https://picsum.photos/60/60'
-        },
-        'timestamp': datetime.now().strftime('%dth %b, %Y - %H:%M hrs'),
-        'photo': 'https://picsum.photos/300/300',
-    },
-    {
-        'title': 'Picture from Brenda',
-        'user': {
-            'name': 'Brenda Gutierrez',
-            'picture': 'https://picsum.photos/60/60'
-        },
-        'timestamp': datetime.now().strftime('%dth %b, %Y - %H:%M hrs'),
-        'photo': 'https://picsum.photos/300/300',
-    },
-    {
-        'title': 'Picture from Luis',
-        'user': {
-            'name': 'Luis Hernandez',
-            'picture': 'https://picsum.photos/60/60'
-        },
-        'timestamp': datetime.now().strftime('%dth %b, %Y - %H:%M hrs'),
-        'photo': 'https://picsum.photos/300/300',
-    },
-    {
-        'title': 'Picture from Vianey',
-        'user': {
-            'name': 'Vianey Lopez',
-            'picture': 'https://picsum.photos/60/60'
-        },
-        'timestamp': datetime.now().strftime('%dth %b, %Y - %H:%M hrs'),
-        'photo': 'https://picsum.photos/300/300',
-    }
-]
-
 @login_required
 def list_post (request):
+    posts = Post.objects.all().order_by('-created')
     return render(request,'posts/feed.html',{'posts': posts})
+
+@login_required
+def create_post(request):
+    """ Create a new post view """
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('feed')
+    else:
+        form = PostForm()
+
+    return render(
+        request=request,
+        template_name = 'posts/new.html',
+        context={
+            'form':form,
+            'user':request.user,
+            'profile': request.user.profile
+        }
+    )

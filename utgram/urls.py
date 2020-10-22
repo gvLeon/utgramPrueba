@@ -16,10 +16,11 @@ urlpatterns = [
     
 
     # PostViews
-    path('posts/feed/', posts_views.list_post,name='feed'),
+    path('', posts_views.list_post,name='feed'),
+    path('new/',posts_views.create_post, name='create_post'),
 
     # Users views
-    path('', users_views.login_view, name='login'),
+    path('login/', users_views.login_view, name='login'),
     path('logout/', users_views.logout_view, name='logout'),
     path('signup/', users_views.signup, name='signup'),
     path('me/profile', users_views.update_profile, name="update_profile"),
