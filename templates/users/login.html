@@ -4,6 +4,12 @@
     <title>Sign in</title>
 {% endblock head_content %}
 
+
+{% block title %}
+<h3 class="align-self-center ml-5">Login</h3>
+{% endblock title %}
+
+
 {% block container %}
 
     {% if error %}
@@ -18,5 +24,15 @@
         </div>
         <button class="btn btn-primary btn-block" type="submit">Sign in</button>
 
+        <div class="d-flex flex-column mt-3">
+            <p class="m-auto">Don't have an account? <a href="{% url 'signup' %}">Sign up here!</a></p>
+        </div>
     </form>
+    {% if error %}
+        <div class="d-flex flex-column mt-3">
+            <p class="m-auto">Olvidaste tu password?
+            <a href="{% url 'password_reset' %}">click aqui</a> </p>
+            
+        </div>
+    {% endif %}
 {% endblock container %}

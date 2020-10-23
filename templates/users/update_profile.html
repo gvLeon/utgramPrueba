@@ -6,7 +6,7 @@
 {% endblock head_content %}
 
 {% block container %}
-    <div class="container mt-5">
+    <div class="container mb-5">
         <div class="row justify-content-md-center">
             <div class="col-6 p-4" id="profile-box">
                 <form action="{% url 'update_profile' %}" method="POST" enctype="multipart/form-data">
@@ -63,6 +63,9 @@
                     </div>
                     <button type="submit" class="btn btn-primary btn-block mt-5">Update info</button>
                 </form>
+                <div class="d-flex flex-column btn-block mt-2">
+                    <a class="m-auto" href="{% url 'password_change' %}">Cambia tu password aqui</a>
+                </div>
             </div>
         </div>
     </div>
